@@ -1,0 +1,53 @@
+.menu-bar{
+    background-color: #c9904e   ;
+}
+body{
+    background-color: #fcd892;
+}
+.bar-toggle{
+    background-color: #4c2916;
+    border: 2px solid hsla(0, 0%, 0%, 0.411);
+}
+.lateral-bar{
+    background-color: #95481f;
+}
+.dropdown-menu-color{
+    background-color: #c9904e;
+    color: white;
+}
+.dropdown-item:hover{
+    background-color: #a0713c;
+    color: white;
+}
+.dropdown-item{
+    color: white;
+}
+.btncolor{
+    background-color: #c9904e;
+    color: #ffff;
+}
+.btncolor:hover{
+    background-color: #c48134;
+    color: #ffff;
+}
+.icon-menu{
+    font-size: 25pt;
+    color: white;
+}
+.option-menu{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.offcanvas-title {
+    margin-left: 145px;
+}
+
+/*
+F2C44A;
+#6B422A
+#693619
+#331F14
+*/
