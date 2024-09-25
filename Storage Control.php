@@ -98,7 +98,10 @@ $result = $conn->query($sql);
 
 <div class="d-flex flex-wrap justify-content-center mt-5">
     <div class="w-100 row g-0 text-center">
-        <div class="col-sm-6 col-md-8"></div>
+        <div class="col-sm-6 col-md-8">
+            <a href="email.php"><button type="button" class="btn btn-danger">Imprimir Relatorio em PDF para email</button></a>
+            <a href="pdf.php"><button type="button" class="btn btn-warning">Imprimir Relatorio em PDF</button></a>
+        </div>
         <div class="col-6 col-md-4">
 <!--FALTA FPDF E O PDF PRO EMAIL-->
             <div class="dropdown">
@@ -130,6 +133,7 @@ $result = $conn->query($sql);
                 <p class="card-text text-center btn btn-link">Fornecedor: <?php echo $row["Fornecedor"]; ?></p>
                 <p class="card-text text-center btn btn-warning">Data de Cadastro: <?php echo $row["Data_cadastro"]; ?></p>
                 <p class="card-text text-center btn btn-primary">Quantidade: <?php echo $row["Quantidade"]; ?></p>
+                <p class="card-text text-center bg-success btn btn-success">Preço Unitario: R$ <?php echo $row["Preço_custo"]; ?></p>
                 <p class="card-text text-center bg-success btn btn-success">Valor Total: R$ <?php echo $row["Valor_total"]; ?></p>
             </div>
         </div>

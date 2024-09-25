@@ -97,34 +97,16 @@ $result = $conn->query($sql);
         <div class="col-sm-6 col-md-8"></div>
 
 <div class="d-flex flex-wrap justify-content-center mt-5">
-    <div class="w-100 row g-0 text-center">
-        <div class="col-sm-6 col-md-8"></div>
-        <div class="col-6 col-md-4">
-            <div class="dropdown">
-                <button class="btn bg-warning-subtle dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                    Categorias
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="Home.php">Todas</a></li>
-                    <li><a class="dropdown-item" href="Home.php?categoria=comidas">Comidas</a></li>
-                    <li><a class="dropdown-item" href="Home.php?categoria=bebidas">Bebidas</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
     <!--Parte para um formulario-->
-    <?php while ($row = mysqli_fetch_assoc($result)): ?>
-        <div class="card m-3" style="width: 18rem;">
-            <img src="<?php echo $row['Imagens']; ?>" class="card-img-top IMG-O" alt="Produto">
-            <div class="card-body">
-                <h5 class="card-title text-center"><?php echo $row["Nome_Produto"]; ?></h5>
-                <p class="card-text text-center"><?php echo $row["Descrição"]; ?></p>
-                <p class="card-text text-center btn btn-primary">Quantidade: <?php echo $row["Quantidade"]; ?></p>
-                <p class="card-text text-center btn btn-success">Valor: R$ <?php echo $row["Preço_custo"]; ?></p>
-                <a href="#" class="btn btn-success mt-2 w-100">Comprar</a>
-            </div>
+    <form action="send_pdf_email.php" method="POST">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Endereço de Email</label>
+            <input type="email" name="email" id="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+            <div id="emailHelp" class="form-text">Email para quem quer enviar o PDF</div>
         </div>
-        <?php endwhile;?>
+        <button type="submit" class="btn btn-primary">Enviar Relatório por E-mail</button>
+    </form>
+
     <!--Parte para um formulario-->
 </div>
 
