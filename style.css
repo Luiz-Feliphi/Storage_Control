@@ -47,10 +47,73 @@ body{
 .IMG-O{
     width: 418;
     height: 626;
+    border-top-left-radius:15px;
+    border-top-right-radius:15px;
 }
 .card{
     top: 90px;
+    border-radius: 15px;
 }
+
+/* style.css */
+
+/* Estilizando o corpo da página */
+body {
+    background-color: #fcd892; /* Cor de fundo suave */
+    font-family: Arial, sans-serif; /* Fonte padrão */
+}
+
+/* Estilo para a barra de navegação */
+.menu-bar {
+    background-color: #c9904e; /* Cor de fundo da navbar */
+}
+
+/* Estilo dos cards de produtos */
+.card {
+    transition: transform 0.3s; /* Transição suave ao passar o mouse */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Aumenta levemente o card ao passar o mouse */
+}
+
+/* Estilo dos botões */
+.btn {
+    transition: background-color 0.3s, color 0.3s; /* Transições suaves */
+}
+
+.btn:hover {
+    background-color: #198754; /* Cor do botão ao passar o mouse */
+    color: #ffd1b9; /* Cor do texto do botão ao passar o mouse */
+}
+
+/* Estilizando o dropdown */
+.dropdown-menu {
+    background-color: #4c2916; /* Cor de fundo do menu dropdown */
+}
+
+/* Estilo para a imagem do card */
+.IMG-O {
+    height: 200px; /* Altura fixa para as imagens */
+    object-fit: cover; /* Faz a imagem cobrir o espaço */
+}
+
+/* Estilo para os textos dos cards */
+.card-title {
+    font-size: 1.25rem; /* Tamanho da fonte do título */
+}
+
+.card-text {
+    font-size: 1rem; /* Tamanho da fonte do texto */
+}
+
+/* Alinhamento e estilo de elementos dentro do card */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os elementos */
+}
+
 /*
 F2C44A;
 #6B422A

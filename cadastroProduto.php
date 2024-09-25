@@ -1,18 +1,52 @@
 <?php
 include_once 'config.php';
 
-// Filtro por categoria
-$categoriaFiltro = isset($_GET['categoria']) ? $_GET['categoria'] : '';
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nomeProduto = $_POST['nomeProduto'];
+    $descricao = $_POST['descricao'];
+    $categoria = $_POST['categoria'];
+    $precoCusto = $_POST['precoCusto'];
+    $quantidade = $_POST['quantidade'];
+    $valorTotal = $precoCusto * $quantidade;
+    $fornecedor = $_POST['fornecedor'];
+    $codigoBarras = $_POST['codigoBarras'];
+    $status = $_POST['status'];
+    $dataCadastro = date('Y-m-d');
+    $imagem = $_POST['imagem'];
 
-// Consulta para listar os produtos com base no filtro
-$categoria = 1;
-$sql = "SELECT * FROM cafeteria";
-if ($categoriaFiltro == 'comidas') {
-    $sql .= " WHERE ID_Categorias = 2";
-} elseif ($categoriaFiltro == 'bebidas') {
-    $sql .= " WHERE ID_Categorias = 1";
+    // Inserir o produto no banco de dados
+    $sql = "INSERT INTO cafeteria (Nome_Produto, Descrição, ID_Categorias, Preço_custo, Quantidade, Valor_total, Fornecedor, Código_barras, Status, Data_cadastro, Imagens)
+            VALUES ('$nomeProduto', '$descricao', '$categoria', '$precoCusto', '$quantidade', '$valorTotal', '$fornecedor', '$codigoBarras', '$status', '$dataCadastro', '$imagem')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo '
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <i class="bi bi-bookmark-fill"></i>
+            <strong class="me-auto">Atenção</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Produto cadastrado com sucesso!
+        </div>
+        </div>
+        
+        ';
+    } else {
+        echo '
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="bi bi-bookmark-fill"></i>
+                <strong class="me-auto">Atenção</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Erro ao cadastrar o produto: ' . $conn->error . '
+            </div>
+        </div>
+        ';
+    }
 }
-$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +58,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="icon" type="image/x-icon" href="img/favicon.png">
     <link rel="stylesheet" href="style.css">
-    <title>Home</title>
+    <title>Cadastro de Produto</title>
 </head>
 <body>
 <nav class="navbar navbar-dark fixed-top menu-bar">
@@ -92,40 +126,53 @@ $result = $conn->query($sql);
     </div>
 </nav>
 <br><br><br><br>
-<div class="d-flex flex-wrap justify-content-center">
-    <div class="w-100 row g-0 text-center CD">
-        <div class="col-sm-6 col-md-8"></div>
-
-<div class="d-flex flex-wrap justify-content-center mt-5">
-    <div class="w-100 row g-0 text-center">
-        <div class="col-sm-6 col-md-8"></div>
-        <div class="col-6 col-md-4">
-            <div class="dropdown">
-                <button class="btn bg-warning-subtle dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                    Categorias
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="Storage Control.php">Todas</a></li>
-                    <li><a class="dropdown-item" href="Storage Control.php?categoria=comidas">Comidas</a></li>
-                    <li><a class="dropdown-item" href="Storage Control.php?categoria=bebidas">Bebidas</a></li>
-                </ul>
-            </div>
+<div class="container mt-5">
+    <h2 class="text-center">Cadastro de Produto</h2>
+    <form method="POST" action="cadastroProduto.php">
+        <div class="mb-3">
+            <label for="nomeProduto" class="form-label">Nome do Produto</label>
+            <input type="text" class="form-control" id="nomeProduto" name="nomeProduto" required>
         </div>
-    </div>
-    <!--Parte para um formulario-->
-    <?php while ($row = mysqli_fetch_assoc($result)): ?>
-        <div class="card m-3" style="width: 18rem;">
-            <img src="<?php echo $row['Imagens']; ?>" class="card-img-top IMG-O" alt="Produto">
-            <div class="card-body">
-                <h5 class="card-title text-center"><?php echo $row["Nome_Produto"]; ?></h5>
-                <p class="card-text text-center"><?php echo $row["Descrição"]; ?></p>
-                <p class="card-text text-center">Quantidade: <?php echo $row["Quantidade"]; ?></p>
-                <p class="card-text text-center">Valor: R$ <?php echo $row["Preço_custo"]; ?></p>
-                <a href="#" class="btn btn-success mt-2 w-100">Comprar</a>
-            </div>
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <textarea class="form-control" id="descricao" name="descricao" required></textarea>
         </div>
-    <?php endwhile; ?>
-    <!--Parte para um formulario-->
+        <div class="mb-3">
+            <label for="categoria" class="form-label">Categoria</label>
+            <select class="form-select" id="categoria" name="categoria" required>
+                <option value="1">Bebidas</option>
+                <option value="2">Comidas</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="precoCusto" class="form-label">Preço de Custo</label>
+            <input type="number" class="form-control" id="precoCusto" name="precoCusto" step="0.01" required>
+        </div>
+        <div class="mb-3">
+            <label for="quantidade" class="form-label">Quantidade em Estoque</label>
+            <input type="number" class="form-control" id="quantidade" name="quantidade" required>
+        </div>
+        <div class="mb-3">
+            <label for="fornecedor" class="form-label">Fornecedor</label>
+            <input type="text" class="form-control" id="fornecedor" name="fornecedor" required>
+        </div>
+        <div class="mb-3">
+            <label for="codigoBarras" class="form-label">Código de Barras</label>
+            <input type="text" class="form-control" id="codigoBarras" name="codigoBarras" required>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="ativo">Ativo</option>
+                <option value="inativo">Inativo</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="imagem" class="form-label">URL da Imagem</label>
+            <input type="text" class="form-control" id="imagem" name="imagem" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar Produto</button>
+    </form>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
