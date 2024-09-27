@@ -1,4 +1,5 @@
 <?php
+require 'fpdf/fpdf.php'; 
 require 'phpmailer/src/PHPMailer.php';
 require 'phpmailer/src/SMTP.php';
 require 'phpmailer/src/Exception.php';
@@ -11,20 +12,21 @@ if (isset($_POST['email'])) {
     $email_destinatario = $_POST['email'];
 
     // Gera o PDF (use seu código de geração de PDF aqui)
-    $pdf = new FPDF('L', 'mm', array(420, 230));
+    $pdf = new FPDF('L', 'mm', array(420, 230));  // Certifique-se que a classe FPDF foi importada corretamente
     $pdf->AddPage();
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(0, 10, utf8_to_iso88591('Relatório de Produtos - Storage Control'), 0, 1, 'C');
+    // Substituindo utf8_to_iso88591 por utf8_decode
+    $pdf->Cell(0, 10, utf8_decode('Relatório de Produtos - Storage Control'), 0, 1, 'C');
     $pdf->SetLeftMargin(10);
-
+    
     // Simples exemplo de tabela
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(15, 10, 'ID', 1, 0, 'C');
-    $pdf->Cell(40, 10, utf8_to_iso88591('Nome Produto'), 1, 0, 'C');
-    $pdf->Cell(25, 10, utf8_to_iso88591('Categoria'), 1, 0, 'C');
-    $pdf->Cell(40, 10, utf8_to_iso88591('Preço Custo'), 1, 0, 'C');
-    $pdf->Cell(20, 10, utf8_to_iso88591('Qtd.'), 1, 0, 'C');
-    $pdf->Cell(30, 10, utf8_to_iso88591('Valor Total'), 1, 1, 'C');
+    $pdf->Cell(40, 10, utf8_decode('Nome Produto'), 1, 0, 'C');
+    $pdf->Cell(25, 10, utf8_decode('Categoria'), 1, 0, 'C');
+    $pdf->Cell(40, 10, utf8_decode('Preço Custo'), 1, 0, 'C');
+    $pdf->Cell(20, 10, 'Qtd.', 1, 0, 'C');
+    $pdf->Cell(30, 10, utf8_decode('Valor Total'), 1, 1, 'C');
 
     // Salva o PDF em um arquivo temporário
     $file = tempnam(sys_get_temp_dir(), 'pdf');

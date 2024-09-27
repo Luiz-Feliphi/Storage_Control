@@ -99,11 +99,10 @@ $result = $conn->query($sql);
 <div class="d-flex flex-wrap justify-content-center mt-5">
     <div class="w-100 row g-0 text-center">
         <div class="col-sm-6 col-md-8">
-            <a href="email.php"><button type="button" class="btn btn-danger">Imprimir Relatorio em PDF para email</button></a>
+            <!--<a href="email.php"><button type="button" class="btn btn-danger">Imprimir Relatorio em PDF para email</button></a>-->
             <a href="pdf.php"><button type="button" class="btn btn-warning">Imprimir Relatorio em PDF</button></a>
         </div>
         <div class="col-6 col-md-4">
-<!--FALTA FPDF E O PDF PRO EMAIL-->
             <div class="dropdown">
                 <button class="btn bg-warning-subtle dropdown-toggle" type="button" data-bs-toggle="dropdown">
                     Categorias
@@ -116,7 +115,7 @@ $result = $conn->query($sql);
             </div>
         </div>
     </div>
-    <!--Parte para um formulario-->
+    <!--Cards do Estoque-->
     <?php while ($row = mysqli_fetch_assoc($result)): ?>
         <div class="card m-3" style="width: 18rem;">
             <img src="<?php echo $row['Imagens']; ?>" class="card-img-top IMG-O" alt="Produto">
@@ -138,7 +137,7 @@ $result = $conn->query($sql);
             </div>
         </div>
     <?php endwhile; ?>
-    <!--Parte para um formulario-->
+    <!--Cards do Estoque-->
 
     
 </div>
